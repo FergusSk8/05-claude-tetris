@@ -1,0 +1,78 @@
+name: Claude Issue Triage
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write   # necesario para añadir labels y comentar
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Claude issue triage
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_args: >-
+            --allowedTools
+            "Bash(gh issue view:*),Bash(gh issue edit:*),Bash(gh issue comment:*),Bash(gh label list:*),Bash(gh label create:*)"
+          prompt: |
+            Eres el responsable de triage de issues de este repositorio.
+            El proyecto es un juego de Tetris en JavaScript vanilla con tres archivos
+            principales: game.js (lógica del juego, ~300 líneas), index.html (DOM y dos
+            canvas: #board 300×600 y #next-canvas 120×120) y style.css (estética retro).
+
+            Tu tarea es analizar el issue #${{ github.event.issue.number }} siguiendo
+            estos pasos en orden:
+
+            1. Lee el issue completo:
+               gh issue view ${{ github.event.issue.number }}
+
+            2. Consulta las labels existentes en el repositorio:
+               gh label list
+
+            3. Elige las labels más apropiadas para el issue.
+               - Si alguna label existente encaja, úsala directamente.
+               - Si ninguna encaja, créala primero con un nombre descriptivo en inglés,
+                 un color hexadecimal coherente y una breve descripción:
+                 gh label create "<nombre>" --color "<hex>" --description "<desc>"
+               - Aplica todas las labels elegidas de una sola vez:
+                 gh issue edit ${{ github.event.issue.number }} --add-label "<label1>,<label2>"
+
+            4. Publica un comentario de diagnóstico en español con el siguiente formato
+               exacto (usa el comando completo con --body):
+
+               gh issue comment ${{ github.event.issue.number }} --body "## 🔍 Diagnóstico del Issue
+
+               **Resumen del problema**
+               <Una o dos frases describiendo claramente el problema reportado.>
+
+               **Posibles causas**
+               - <Causa 1>
+               - <Causa 2>
+               - ...
+
+               **Archivos probablemente implicados**
+               - <archivo>: <razón>
+               - ...
+
+               **Enfoque sugerido para la solución**
+               <Descripción del enfoque técnico recomendado, sin escribir código.>
+
+               ---
+               *Análisis automático generado por Claude.*"
+
+            IMPORTANTE:
+            - Si el issue fue editado y ya existe un comentario de diagnóstico previo tuyo,
+              añade un nuevo comentario indicando que es una actualización del análisis.
+            - No escribas el código de la solución, solo el diagnóstico.
+            - Escribe todo el diagnóstico en español.
