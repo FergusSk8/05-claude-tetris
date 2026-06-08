@@ -76,3 +76,6 @@ jobs:
               añade un nuevo comentario indicando que es una actualización del análisis.
             - No escribas el código de la solución, solo el diagnóstico.
             - Escribe todo el diagnóstico en español.
+            - El comentario debe estar escrito en formato Markdown válido para que GitHub
+              lo renderice correctamente: usa **negrita**, ## encabezados, listas con -,
+              bloques de código con comillas invertidas y saltos de línea apropiados.
