@@ -192,6 +192,26 @@ kbd {
   font-weight: 600;
 }
 
+/* ---- Skin selector ---- */
+#skin-select {
+  background: var(--kbd-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 11px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+
+#skin-select:focus {
+  outline: 1px solid var(--accent);
+}
+
 /* ---- Overlay ---- */
 .overlay {
   position: absolute;
