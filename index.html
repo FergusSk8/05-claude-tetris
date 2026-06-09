@@ -25,6 +25,10 @@
           <span class="label">LEVEL</span>
           <span class="value" id="level">1</span>
         </div>
+        <div class="panel-section">
+          <span class="label">COMBO</span>
+          <span class="value" id="combo">0</span>
+        </div>
 
         <div class="panel-section">
           <span class="label">HOLD</span>
@@ -62,10 +66,33 @@
     </div>
 
     <div id="overlay" class="overlay hidden">
-      <div class="overlay-box">
-        <p id="overlay-title">GAME OVER</p>
-        <p id="overlay-score"></p>
-        <button id="restart-btn">Reiniciar</button>
+      <!-- Start screen -->
+      <div class="overlay-box overlay-start hidden">
+        <p class="overlay-heading">TETRIS</p>
+        <div id="start-scores-container" class="scores-container"></div>
+        <button id="start-btn" class="btn-primary">Iniciar partida</button>
+        <button id="start-reset-btn" class="btn-secondary">Resetear records</button>
+      </div>
+
+      <!-- Game over screen -->
+      <div class="overlay-box overlay-gameover hidden">
+        <p class="overlay-heading go-title">GAME OVER</p>
+        <p id="go-score" class="go-stats"></p>
+        <div id="go-name-block" class="hidden name-input-block">
+          <input type="text" id="go-name-input" placeholder="Tu nombre" maxlength="20" />
+          <button id="go-save-btn" class="btn-primary">Guardar</button>
+        </div>
+        <div id="go-scores-container" class="scores-container hidden"></div>
+        <div class="overlay-actions">
+          <button id="go-reset-btn" class="btn-secondary">Resetear records</button>
+          <button id="go-new-btn" class="btn-primary">Nueva partida</button>
+        </div>
+      </div>
+
+      <!-- Pause screen -->
+      <div class="overlay-box overlay-pause hidden">
+        <p class="overlay-heading pause-heading">PAUSA</p>
+        <button id="resume-btn" class="btn-primary">Reanudar</button>
       </div>
     </div>
   </div>
