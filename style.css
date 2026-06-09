@@ -203,6 +203,7 @@ kbd {
   backdrop-filter: blur(4px);
   border-radius: 4px;
   transition: background 0.25s;
+  overflow-y: auto;
 }
 
 .overlay.hidden {
@@ -215,23 +216,40 @@ kbd {
   flex-direction: column;
   gap: 12px;
   align-items: center;
+  padding: 20px 16px;
+  max-width: 460px;
+  width: 100%;
 }
 
-#overlay-title {
+.overlay-box.hidden {
+  display: none;
+}
+
+.overlay-heading {
+  font-family: 'Courier New', Courier, monospace;
   font-size: 28px;
   font-weight: 800;
   letter-spacing: 4px;
-  color: #e57373;
-}
-
-#overlay-score {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 14px;
   color: var(--accent);
 }
 
-#restart-btn {
-  margin-top: 8px;
+.go-title {
+  color: #e57373;
+}
+
+.pause-heading {
+  color: var(--accent);
+}
+
+.go-stats {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  color: var(--text);
+  opacity: 0.85;
+}
+
+/* ---- Buttons ---- */
+.btn-primary {
   background: var(--accent);
   color: var(--bg);
   border: none;
@@ -241,9 +259,106 @@ kbd {
   font-weight: 700;
   cursor: pointer;
   letter-spacing: 1px;
-  transition: background 0.15s;
+  transition: opacity 0.15s;
 }
 
-#restart-btn:hover {
-  background: #9bbdff;
+.btn-primary:hover {
+  opacity: 0.85;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--label);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.btn-secondary:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.overlay-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ---- Name input block ---- */
+.name-input-block {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.name-input-block.hidden {
+  display: none;
+}
+
+#go-name-input {
+  background: var(--canvas-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: var(--text);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+#go-name-input:focus {
+  border-color: var(--accent);
+}
+
+/* ---- Scores table ---- */
+.scores-container {
+  width: 100%;
+}
+
+.scores-container.hidden {
+  display: none;
+}
+
+.no-records {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  color: var(--label);
+  letter-spacing: 1px;
+}
+
+.scores-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  color: var(--text);
+}
+
+.scores-table th {
+  color: var(--label);
+  font-size: 10px;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border);
+  padding: 4px 6px;
+  text-align: left;
+}
+
+.scores-table td {
+  padding: 5px 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.scores-table .highlight-row td {
+  color: var(--accent);
+  font-weight: 700;
 }
